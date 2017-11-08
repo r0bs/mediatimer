@@ -1,11 +1,8 @@
-import React, {
-    Component
-} from 'react';
-import {
-    connect
-} from 'react-redux';
+import { connect} from 'react-redux';
+import { Player } from "./Player";
 
-class YouTubePlayer extends Component {
+
+class YouTubePlayer extends Player {
 
     constructor(props) {
         super();
@@ -21,7 +18,7 @@ class YouTubePlayer extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (this.youTubePlayer && (nextProps.timeLeftSeconds > this.props.timeLeftSeconds)) {
-            this.pauseVideo();
+            this.stop();
         }
         if ((nextProps.youTubeVideoId !== this.props.youTubeVideoId)) {
             this.changeVideo(nextProps.youTubeVideoId);
@@ -82,25 +79,16 @@ class YouTubePlayer extends Component {
         this.videoDuration = this.youTubePlayer.getDuration();
     }
 
-    playVideo() {
+    play() {
         this.youTubePlayer.playVideo();
     }
 
-    pauseVideo() {
+    stop() {
         this.youTubePlayer.stopVideo();
     }
 
-    shouldStartPlayback() {
-        return this.youTubePlayer ? this.props.timeLeftSeconds <= this.videoDuration ? true : false : false;
-    }
-
     render() {
-        if (this.shouldStartPlayback()) {
-            this.playVideo();
-        }
-        return ( 
-            <div id="player" />
-        );
+        return super.renderPlayer(this.youTubePlayer, this.props.timeLeftSeconds, this.videoDuration)
     }
 
 }

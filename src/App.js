@@ -5,7 +5,7 @@ import AudioInput from "./AudioInput.js";
 import AudioFileInput from "./AudioFileInput.js";
 import YouTubeInput from "./YouTubeInput.js";
 import Tick from "./Tick.js";
-import AudioPlayer from "./Player";
+import AudioPlayer from "./AudioPlayer";
 import YouTubePlayer from "./YouTubePlayer";
 import './App.css';
 
