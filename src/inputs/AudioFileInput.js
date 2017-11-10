@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { setAudio } from './actions';
+import { setAudio } from '../actions';
 
 class AudioFileInput extends Component {
   

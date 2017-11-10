@@ -51,8 +51,7 @@ class YouTubePlayer extends Player {
 
     changeVideo(youTubeVideoId) {
         if(this.youTubePlayer) {
-            this.youTubePlayer.destroy();
-            this.youTubePlayer = 0;
+            this.destroy();
         }
         if (this.isYouTubeVideoIdLengthValid(youTubeVideoId)) {
             this.instanciateYouTubePlayer(youTubeVideoId);
@@ -60,6 +59,7 @@ class YouTubePlayer extends Player {
     }
 
     instanciateYouTubePlayer(youTubeVideoId) {
+        if(!youTubeVideoId) return;
         this.youTubePlayerInstance = new YT.Player('player', { /* eslint no-undef: 0 */
             videoId: youTubeVideoId,
             playerVars: {
@@ -89,6 +89,11 @@ class YouTubePlayer extends Player {
         if(this.youTubePlayer && this.youTubePlayer.getPlayerState() > 0) {
             this.youTubePlayer.stopVideo();
         }
+    }
+    
+    destroy() {
+        this.youTubePlayer.destroy();
+        this.youTubePlayer = 0;
     }
 
     render() {

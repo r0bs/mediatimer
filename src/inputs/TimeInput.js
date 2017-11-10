@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { setTimer } from './actions';
+import { setTimer } from '../actions';
 
 class TimeInput extends Component {
   

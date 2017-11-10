@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { setYouTubeVideoId } from './actions';
+import { setYouTubeVideoId } from '../actions';
 
 class YouTubeInput extends Component {
   

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { setAudio } from './actions';
+import { setAudio } from '../actions';
 
-class AudioInput extends Component {
+class AudioUrlInput extends Component {
   
   constructor(props) {
     super();
@@ -33,4 +33,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(AudioInput)
+export default connect(mapStateToProps)(AudioUrlInput)
