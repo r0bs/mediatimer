@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import TimeInput from "./inputs/TimeInput.js";
 import TimePicker from "./inputs/TimePicker.js";
 import AudioUrlInput from "./inputs/AudioUrlInput.js";
-import AudioFileInput from "./inputs/AudioFileInput.js";
 import YouTubeInput from "./inputs/YouTubeInput.js";
 
 import AudioPlayer from "./player/AudioPlayer";
@@ -21,7 +20,6 @@ class App extends Component {
         <TimePicker />
         <AudioUrlInput />
         <YouTubeInput />
-        <AudioFileInput />
 
         <Tick />
 
