@@ -7,6 +7,7 @@ class YouTubePlayer extends Player {
     constructor(props) {
         super();
         this.props = props;
+        this.youTubePlayerInstance;
         this.youTubePlayer;
         this.videoDuration;
         this.apiSrc = "https://www.youtube.com/iframe_api";
@@ -59,19 +60,20 @@ class YouTubePlayer extends Player {
     }
 
     instanciateYouTubePlayer(youTubeVideoId) {
-        this.youTubePlayer = new YT.Player('player', { /* eslint no-undef: 0 */
+        this.youTubePlayerInstance = new YT.Player('player', { /* eslint no-undef: 0 */
             videoId: youTubeVideoId,
             playerVars: {
                 "autoplay": 0,
                 "controls": 0
             },
             events: {
-                'onReady': this.onPlayerReady.bind(this)
+                'onReady': this.onPlayerReady.bind(this, this.youTubePlayerInstance)
             }
         });
     }
 
     onPlayerReady() {
+        this.youTubePlayer = this.youTubePlayerInstance;
         this.setVideoDuration();
     }
 
@@ -84,7 +86,9 @@ class YouTubePlayer extends Player {
     }
 
     stop() {
-        this.youTubePlayer.stopVideo();
+        if(this.youTubePlayer && this.youTubePlayer.getPlayerState() > 0) {
+            this.youTubePlayer.stopVideo();
+        }
     }
 
     render() {

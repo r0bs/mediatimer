@@ -12,7 +12,11 @@ class AudioPlayer extends Player {
 
     componentWillReceiveProps(nextProps) {
         if(this.props.audioFileUrl !== nextProps.audioFileUrl) {
+            if (this.audio) this.stop();
             this.loadAudio(nextProps.audioFileUrl);
+        }
+        if(this.audio && nextProps.audioFileUrl === "") {
+            this.audio = 0;
         }
         if(this.audio && (nextProps.timeLeftSeconds > this.props.timeLeftSeconds)) {
             this.stop();

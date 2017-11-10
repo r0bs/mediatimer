@@ -5,8 +5,8 @@ import AudioInput from "./AudioInput.js";
 import AudioFileInput from "./AudioFileInput.js";
 import YouTubeInput from "./YouTubeInput.js";
 import Tick from "./Tick.js";
-import AudioPlayer from "./AudioPlayer";
-import YouTubePlayer from "./YouTubePlayer";
+import AudioPlayer from "./player/AudioPlayer";
+import YouTubePlayer from "./player/YouTubePlayer";
 import './App.css';
 
 class App extends Component {

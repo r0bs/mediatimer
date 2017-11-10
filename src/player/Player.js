@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 export class Player extends Component {
 
     shouldStartPlayback(media, timeLeftSeconds, mediaDuration) {
-        return media ? timeLeftSeconds <= mediaDuration ? true : false : false;
+        return media ? mediaDuration ? timeLeftSeconds <= mediaDuration ? true : false : false : false;
     }
 
     shoudStopPlayback(media, timeLeftSeconds) {
