@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 
-import TimeInput from "./inputs/TimeInput.js";
-import TimePicker from "./inputs/TimePicker.js";
-import AudioUrlInput from "./inputs/AudioUrlInput.js";
-import YouTubeInput from "./inputs/YouTubeInput.js";
+import TimePicker from "./inputs/TimePicker";
+import AudioUrlInput from "./inputs/AudioUrlInput";
+import YouTubeInput from "./inputs/YouTubeInput";
+import DurationPicker from "./inputs/DurationPicker";
 
 import AudioPlayer from "./player/AudioPlayer";
 import YouTubePlayer from "./player/YouTubePlayer";
 
-import Tick from "./Tick.js";
+import Tick from "./timeUtils/Tick.js";
 
 import './App.css';
 
@@ -16,7 +16,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <TimeInput />
+        <DurationPicker />
         <TimePicker />
         <AudioUrlInput />
         <YouTubeInput />

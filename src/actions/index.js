@@ -1,14 +1,6 @@
-export const setTimer = time => {
+export const tick = () => {
     return {
-        type: "SET_TIME",
-        time
-    }
-}
-
-export const tick = time => {
-    return {
-        type: "TICK",
-        time
+        type: "TICK"
     }
 }
 
@@ -16,6 +8,13 @@ export const setPointInTime = pointInTime => {
     return {
         type: "SET_POINT_IN_TIME",
         pointInTime
+    }
+}
+
+export const setDuration = duration => {
+    return {
+        type: "SET_DURATION",
+        duration
     }
 }
 

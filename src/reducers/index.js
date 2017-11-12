@@ -1,26 +1,31 @@
+import moment from "moment"
 import { combineReducers } from 'redux'
-import { getDurationAsSeconds, calculatePointOfTime } from "./TimeConverter";
+import { calculateDuration, calculatePointInTime, substractSeconds } from "../timeUtils/TimeConverter";
 
-const time = (state = {totalDuration: "", pointInTime: "00:00:00"}, action) => {
+const defaultDuration = {
+    hours: "00",
+    minutes: "00",
+    seconds: "00"
+};
+
+const defaultPointInTime = moment().milliseconds(0);
+
+const time = (state = {duration: defaultDuration, pointInTime: defaultPointInTime}, action) => {
     switch (action.type) {
-        case "SET_TIME":
-            return {
-                time: action.time,
-                totalDuration: action.time,
-                pointInTime: calculatePointOfTime(action.time)
-            }
         case "SET_POINT_IN_TIME":
-            const durationAsSeconds = getDurationAsSeconds(action.pointInTime);
             return {
-                time: durationAsSeconds,
-                totalDuration: durationAsSeconds,
-                pointInTime: action.pointInTime.format("HH:mm:ss")
+                duration: calculateDuration(action.pointInTime),
+                pointInTime: action.pointInTime
+            }
+        case "SET_DURATION":
+            return {
+                duration: action.duration,
+                pointInTime: calculatePointInTime(action.duration)
             }
         case "TICK":
             return {
-                time: state.time - 1,
-                totalDuration: state.totalDuration,
-                pointInTime: state.pointInTime,
+                duration: substractSeconds(state.duration, 1),
+                pointInTime: state.pointInTime
             }
         default:
             return state;

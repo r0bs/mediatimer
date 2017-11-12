@@ -7,10 +7,11 @@ export class Player extends Component {
     }
 
     shoudStopPlayback(media, timeLeftSeconds) {
-        return media ? timeLeftSeconds === 0 ? true : false : false;
+        return media ? timeLeftSeconds <= 0 ? true : false : false;
     }
 
     renderPlayer(media, timeLeftSeconds, mediaDuration) {
+
         if (this.shouldStartPlayback(media, timeLeftSeconds, mediaDuration)) {
             this.play();
         }

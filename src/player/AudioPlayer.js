@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import { Player } from "./Player"
+import { durationObjectToSeconds } from "../timeUtils/TimeConverter"
 
 class AudioPlayer extends Player {
 
@@ -11,6 +12,10 @@ class AudioPlayer extends Player {
     }
 
     componentWillReceiveProps(nextProps) {
+
+        const nextDuration = durationObjectToSeconds(nextProps.duration);
+        const currentDurationInSeconds = durationObjectToSeconds(this.props.duration);
+
         if(this.props.audioFileUrl !== nextProps.audioFileUrl) {
             if (this.audio) this.stop();
             this.loadAudio(nextProps.audioFileUrl);
@@ -18,7 +23,7 @@ class AudioPlayer extends Player {
         if(this.audio && nextProps.audioFileUrl === "") {
             this.audio = 0;
         }
-        if(this.audio && (nextProps.timeLeftSeconds > this.props.timeLeftSeconds)) {
+        if(this.audio && (nextDuration > currentDurationInSeconds)) {
             this.stop();
         }
     }
@@ -45,13 +50,15 @@ class AudioPlayer extends Player {
     }
 
     render() {
-        return super.renderPlayer(this.audio, this.props.timeLeftSeconds, this.audio.duration);
+        const currentDurationInSeconds = durationObjectToSeconds(this.props.duration);
+
+        return super.renderPlayer(this.audio, currentDurationInSeconds, this.audio.duration);
     }
 }
 
 const mapStateToProps = (state) => {
     return {
-        timeLeftSeconds: state.time.time,
+        duration: state.time.duration,
         audioFileUrl: state.media.audio
     };
 }

@@ -1,6 +1,6 @@
 import { connect} from 'react-redux';
 import { Player } from "./Player";
-
+import { durationObjectToSeconds } from "../timeUtils/TimeConverter"
 
 class YouTubePlayer extends Player {
 
@@ -15,10 +15,15 @@ class YouTubePlayer extends Player {
         this.maxVideoIdLength = 13;
         this.initializeYouTubePlayer()
         window.onYouTubeIframeAPIReady = this.instanciateYouTubePlayer.bind(this);
+        this.durationInSeconds;
     }
 
     componentWillReceiveProps(nextProps) {
-        if (this.youTubePlayer && (nextProps.timeLeftSeconds > this.props.timeLeftSeconds)) {
+
+        const nextDurationInSeconds = durationObjectToSeconds(nextProps.duration);
+        this.currentDurationInSeconds = durationObjectToSeconds(this.props.duration);
+
+        if (this.youTubePlayer && (nextDurationInSeconds >= this.currentDurationInSeconds)) {
             this.stop();
         }
         if ((nextProps.youTubeVideoId !== this.props.youTubeVideoId)) {
@@ -35,6 +40,15 @@ class YouTubePlayer extends Player {
         firstScriptTag.parentNode.insertBefore(apiScript, firstScriptTag);
     }
 
+    changeVideo(youTubeVideoId) {
+        if(this.youTubePlayer) {
+            this.destroy();
+        }
+        if (this.isYouTubeVideoIdLengthValid(youTubeVideoId)) {
+            this.instanciateYouTubePlayer(youTubeVideoId);
+        }
+    }
+
     isYouTubeVideoIdLengthValid(youTubeVideoId) {
         if (typeof youTubeVideoId === "undefined") {
             return false;
@@ -47,15 +61,6 @@ class YouTubePlayer extends Player {
         }
         console.log("Length of YouTube Video ID '" + youTubeVideoId + "' is valid");
         return true;
-    }
-
-    changeVideo(youTubeVideoId) {
-        if(this.youTubePlayer) {
-            this.destroy();
-        }
-        if (this.isYouTubeVideoIdLengthValid(youTubeVideoId)) {
-            this.instanciateYouTubePlayer(youTubeVideoId);
-        }
     }
 
     instanciateYouTubePlayer(youTubeVideoId) {
@@ -79,10 +84,13 @@ class YouTubePlayer extends Player {
 
     setVideoDuration() {
         this.videoDuration = this.youTubePlayer.getDuration();
+        console.log("Video duration in seconds is: ", this.videoDuration);
     }
 
     play() {
-        this.youTubePlayer.playVideo();
+        if(this.youTubePlayer && this.youTubePlayer.getPlayerState() !== 1) {
+            this.youTubePlayer.playVideo();
+        }
     }
 
     stop() {
@@ -97,14 +105,15 @@ class YouTubePlayer extends Player {
     }
 
     render() {
-        return super.renderPlayer(this.youTubePlayer, this.props.timeLeftSeconds, this.videoDuration)
+        this.durationInSeconds = durationObjectToSeconds(this.props.duration)
+        return super.renderPlayer(this.youTubePlayer, this.durationInSeconds, this.videoDuration)
     }
 
 }
 
 const mapStateToProps = (state) => {
     return {
-        timeLeftSeconds: state.time.time,
+        duration: state.time.duration,
         youTubeVideoId: state.media.youTubeVideoId
     };
 }

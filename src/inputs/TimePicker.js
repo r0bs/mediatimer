@@ -11,15 +11,20 @@ class TimePicker extends Component {
   }
 
   setPointInTime(event) {
+
+    console.log(event.target.value)
     const ringPointInTime = moment(event.target.value, "HH:mm:ss");
     this.props.dispatch(setPointInTime(ringPointInTime));
   }
 
   render() {
+
+    const pointInTime = this.props.pointInTime.format("HH:mm:ss");
+
     return (
       <div>
       <input 
-          value={this.props.pointInTime}
+          value={pointInTime}
           onChange={this.setPointInTime.bind(this)}
           type="time"
           step="1"/>
