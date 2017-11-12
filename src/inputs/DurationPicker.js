@@ -12,7 +12,6 @@ class DurationPicker extends Component {
   }
 
   setDuration(event) {
-    console.log("event.target.value" , event.target.value);
     const duration = moment(event.target.value, "HH:mm:ss");
     const durationObject = convertMomentToDurationObject(duration);
     this.props.dispatch(setDuration(durationObject));

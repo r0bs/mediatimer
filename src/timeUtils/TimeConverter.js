@@ -33,7 +33,7 @@ export const secondsToDuration = durationInS => {
     return {
         hours: parseInt( ( durationInS % secondsInOneDay) / secondsInOneHour, 10).toString().padStart(2,0),
         minutes: parseInt( ( durationInS % secondsInOneHour) / secondsInOneMinute, 10).toString().padStart(2,0),
-        seconds: parseInt( durationInS % secondsInOneMinute ).toString().padStart(2,0)
+        seconds: parseInt( durationInS % secondsInOneMinute, 10 ).toString().padStart(2,0)
     }
 };
 

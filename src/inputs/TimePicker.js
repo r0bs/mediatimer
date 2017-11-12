@@ -11,8 +11,6 @@ class TimePicker extends Component {
   }
 
   setPointInTime(event) {
-
-    console.log(event.target.value)
     const ringPointInTime = moment(event.target.value, "HH:mm:ss");
     this.props.dispatch(setPointInTime(ringPointInTime));
   }

@@ -7,15 +7,14 @@ class YouTubePlayer extends Player {
     constructor(props) {
         super();
         this.props = props;
-        this.youTubePlayerInstance;
-        this.youTubePlayer;
-        this.videoDuration;
+        this.youTubePlayerInstance = null;
+        this.youTubePlayer = null;
+        this.videoDuration = null;
         this.apiSrc = "https://www.youtube.com/iframe_api";
         this.minVideoIdLength = 11;
         this.maxVideoIdLength = 13;
         this.initializeYouTubePlayer()
         window.onYouTubeIframeAPIReady = this.instanciateYouTubePlayer.bind(this);
-        this.durationInSeconds;
     }
 
     componentWillReceiveProps(nextProps) {
@@ -59,7 +58,6 @@ class YouTubePlayer extends Player {
         if (idLength < this.minVideoIdLength | idLength > this.maxVideoIdLength) {
             return false;
         }
-        console.log("Length of YouTube Video ID '" + youTubeVideoId + "' is valid");
         return true;
     }
 
@@ -84,7 +82,6 @@ class YouTubePlayer extends Player {
 
     setVideoDuration() {
         this.videoDuration = this.youTubePlayer.getDuration();
-        console.log("Video duration in seconds is: ", this.videoDuration);
     }
 
     play() {
@@ -105,8 +102,8 @@ class YouTubePlayer extends Player {
     }
 
     render() {
-        this.durationInSeconds = durationObjectToSeconds(this.props.duration)
-        return super.renderPlayer(this.youTubePlayer, this.durationInSeconds, this.videoDuration)
+        const durationInSeconds = durationObjectToSeconds(this.props.duration)
+        return super.renderPlayer(this.youTubePlayer, durationInSeconds, this.videoDuration)
     }
 
 }
